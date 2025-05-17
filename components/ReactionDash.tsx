@@ -2,9 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import Stats from './Stats';
 
 export default function ReactionDash() {
-	const today = new Date().toISOString().slice(0, 10);
+	const now = new Date();
+	if (now.getHours() < 1) now.setDate(now.getDate() - 1);
+	const today = now.toISOString().slice(0, 10);
 	const storageKey = `reactionDash_${today}`;
-	const maxTries = 6;
+	const maxTries = 5;
 
 	const [times, setTimes] = useState<number[]>([]);
 	const [penalties, setPenalties] = useState<number>(0);
@@ -31,10 +33,7 @@ export default function ReactionDash() {
 	}, [storageKey, times, penalties]);
 
 	const handleStart = () => {
-		if (attempts >= maxTries) {
-			setMessage('No tries left today');
-			return;
-		}
+		if (attempts >= maxTries) return setMessage('No tries left today');
 		setStage('waiting');
 		setMessage('Wait for GREEN');
 		const delay = Math.random() * 4000 + 1000;
@@ -52,7 +51,7 @@ export default function ReactionDash() {
 			setStage('done');
 			setMessage(`Your time: ${rt} ms`);
 		} else if (stage === 'waiting') {
-			window.clearTimeout(timeoutRef.current);
+			clearTimeout(timeoutRef.current);
 			setStage('start');
 			setPenalties((prev) => prev + 1);
 			setMessage('Too soon! You lost a try. Click START to try again');
@@ -67,13 +66,11 @@ export default function ReactionDash() {
 		const text = `Reaction Dash ${today}\nTimes: ${times.join(
 			' ms, '
 		)} ms\nAverage: ${avg} ms\nBest: ${best} ms`;
-		if (navigator.share) {
-			navigator.share({ text });
-		} else {
+		if (navigator.share) navigator.share({ text });
+		else
 			navigator.clipboard
 				.writeText(text)
 				.then(() => alert('Results copied to clipboard'));
-		}
 	};
 
 	return (

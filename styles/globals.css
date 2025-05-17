@@ -1,31 +1,56 @@
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 body {
   font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+  height: 100%;
 }
-.container {
-  min-height: 100vh;
+#\__next, .container {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #f3f4f6;
-  padding: 16px;
+}
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.header {
+  background-color: #ffffff;
+  padding: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+.nav a {
+  text-decoration: none;
+  color: #333333;
+  font-weight: bold;
 }
 .ad {
   width: 100%;
-  max-width: 400px;
   height: 60px;
   background-color: #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #555;
+  color: #555555;
   font-size: 0.9rem;
-  margin: 16px 0;
   border-radius: 4px;
+}
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 16px;
 }
 .dash {
   display: flex;
@@ -40,7 +65,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background-color: #ccc;
+  background-color: #cccccc;
   cursor: pointer;
   user-select: none;
   text-align: center;
@@ -51,7 +76,7 @@ body {
 .dash-box.react {
   background-color: #4ade80;
 }
-.start-button {
+.start-button, .share-button {
   padding: 8px 16px;
   background-color: #3b82f6;
   color: white;
@@ -66,4 +91,16 @@ body {
 .stats {
   text-align: center;
   line-height: 1.5;
+}
+.history {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+.history-entry {
+  background-color: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
