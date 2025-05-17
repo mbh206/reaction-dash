@@ -13,7 +13,7 @@ export default function ReactionDash() {
 	);
 	const [message, setMessage] = useState<string>('Click START to begin');
 	const [startTime, setStartTime] = useState<number>(0);
-	const timeoutRef = useRef<number>();
+	const timeoutRef = useRef<number>(0);
 
 	const attempts = times.length + penalties;
 
