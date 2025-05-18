@@ -88,6 +88,20 @@ body {
   opacity: 0.5;
   cursor: default;
 }
+.share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.share-button {
+  display: inline-block;
+  text-decoration: none;
+  padding: 8px 12px;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 4px;
+}
 .stats {
   text-align: center;
   line-height: 1.5;

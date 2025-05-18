@@ -33,10 +33,13 @@ export default function ReactionDash() {
 	}, [storageKey, times, penalties]);
 
 	const handleStart = () => {
-		if (attempts >= maxTries) return setMessage('No tries left today');
+		if (attempts >= maxTries) {
+			setMessage('No tries left today');
+			return;
+		}
 		setStage('waiting');
 		setMessage('Wait for GREEN');
-		const delay = Math.random() * 4000 + 1000;
+		const delay = Math.random() * 4000 + 1000; // 1-5 seconds
 		timeoutRef.current = window.setTimeout(() => {
 			setStage('react');
 			setMessage('CLICK!');
@@ -62,15 +65,16 @@ export default function ReactionDash() {
 		const avg = times.length
 			? Math.round(times.reduce((a, b) => a + b, 0) / times.length)
 			: 0;
-		const best = times.length ? Math.min(...times) : 0;
-		const text = `Reaction Dash ${today}\nTimes: ${times.join(
-			' ms, '
-		)} ms\nAverage: ${avg} ms\nBest: ${best} ms`;
-		if (navigator.share) navigator.share({ text });
-		else
-			navigator.clipboard
-				.writeText(text)
-				.then(() => alert('Results copied to clipboard'));
+		const text = `I just averaged ${avg} ms on Reaction Dash! Can you beat me? 🤔
+Play now: ${window.location.origin}`;
+		if (navigator.share) {
+			navigator.share({ text });
+		} else {
+			window.open(
+				`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,
+				'_blank'
+			);
+		}
 	};
 
 	return (
@@ -96,7 +100,7 @@ export default function ReactionDash() {
 				<button
 					onClick={shareResults}
 					className='share-button'>
-					SHARE RESULTS
+					Share Your Score
 				</button>
 			)}
 		</div>
