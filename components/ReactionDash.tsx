@@ -65,7 +65,17 @@ export default function ReactionDash() {
 		const avg = times.length
 			? Math.round(times.reduce((a, b) => a + b, 0) / times.length)
 			: 0;
-		const text = `I just averaged ${avg} ms on Reaction Dash! Can you beat me? 🤔
+		const best = times.length ? Math.min(...times) : 0;
+		// Benchmark against everyday reactions
+		const benchmark =
+			avg < 200
+				? 'rocket speed 🚀'
+				: avg < 300
+				? 'faster than a sneeze'
+				: avg < 400
+				? 'in line with an average blink'
+				: 'still warming up';
+		const text = `My avg reaction time today was ${avg} ms (${benchmark}). Can you top that? 🤔
 Play now: ${window.location.origin}`;
 		if (navigator.share) {
 			navigator.share({ text });
